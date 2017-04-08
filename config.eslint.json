@@ -1,0 +1,58 @@
+{
+	"extends": ["eslint:all", "plugin:react/recommended", "airbnb"],
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"globals": {
+		"$": true,
+		"APP_SETTINGS": true,
+		"console": true,
+		"document": true,
+		"fetch": true,
+		"jwplayer": true,
+		"Promise": true,
+		"window": true
+	},
+	"rules": {
+		"array-callback-return": 0,
+		"capitalized-comments": 0,
+		"class-methods-use-this": 0,
+		"comma-dangle": 0,
+		"consistent-return": 1,
+		"dot-location": 0,
+		"eol-last": 0,
+		"global-require": 1,
+		"import/extensions": 0,
+		"import/first": 1,
+		"import/no-extraneous-dependencies": 0,
+		"import/no-unresolved": 0,
+		"import/prefer-default-export": 1,
+		"indent": [1, "tab"],
+		"jsx-a11y/no-static-element-interactions": 0,
+		"linebreak-style": 0,
+		"max-len": 0,
+		"no-console": 0,
+		"no-param-reassign": 1,
+		"no-restricted-syntax": 1,
+		"no-tabs": 0,
+		"no-unused-vars": 1,
+		"padded-blocks": 0,
+		"quote-props": [1, "as-needed"],
+		"react/jsx-indent": [1, "tab"],
+		"react/forbid-prop-types": [1, {
+			"forbid": ["any", "object"]
+		}],
+		"react/no-unused-prop-types": [1, {
+			"skipShapeProps": true
+		}],
+		"quotes": [1, "single", {
+			"avoidEscape": true,
+			"allowTemplateLiterals": true
+		}]
+	},
+	"plugins": ["react"]
+}
