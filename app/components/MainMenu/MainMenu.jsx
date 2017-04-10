@@ -8,12 +8,6 @@ import {
 import APP from 'utils/app';
 import routerUrls from 'utils/routerUrls';
 
-// redux
-import {
-	closePlayer as closePlayerAction
-} from 'actions/player';
-import store from 'store/index';
-
 // styles
 import styles from './MainMenu.less';
 
@@ -40,7 +34,6 @@ class MainMenu extends React.Component {
 				myMenu.classList.remove(styles.menu__animatable);
 				if (this.selectedItemPath) {
 					browserHistory.push(this.selectedItemPath);
-					store.dispatch(closePlayerAction(true));
 					this.selectedItemPath = '';
 				}
 			};
@@ -64,7 +57,7 @@ class MainMenu extends React.Component {
 			<div className={styles.menuContainer} id="menu-container">
 				<div className={styles.menuContainerInner}>
 					<div className={styles.username}>
-						@{APP.username}
+						@hey
 					</div>
 					<ul className={styles.menu}>
 						<li className={styles.menuItem}>

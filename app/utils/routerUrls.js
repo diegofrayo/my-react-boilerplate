@@ -1,4 +1,4 @@
-const ROOT = APP_SETTINGS.environment === 'development' ? '' : '/project_name';
+const ROOT = APP_SETTINGS.environment === 'development' ? '' : '/player';
 
 const routes = {
 	HOME: ROOT === '' ? '/' : ROOT,

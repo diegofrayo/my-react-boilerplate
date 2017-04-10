@@ -9,8 +9,8 @@ module.exports = {
 	],
 	output: {
 		filename: 'bundle.js',
-		path: path.resolve(__dirname, '../build/assets/project_name/'),
-		publicPath: '/assets/project_name/'
+		path: path.resolve(__dirname, '../build/assets/'),
+		publicPath: '/assets/'
 	},
 	plugins: [new webpack.HotModuleReplacementPlugin()]
 };

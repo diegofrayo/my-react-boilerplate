@@ -1,2 +1,3 @@
 // CONTAINER NAME
 export const MY_CONSTANT = 'MY_CONSTANT';
+export const MY_CONSTANT_2 = 'MY_CONSTANT_2';

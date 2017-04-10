@@ -44,7 +44,7 @@ function createJSTags(jsSources) {
 //----------------------------------------------------
 //------------------- JS Tasks -----------------------
 gulp.task('build-js', () => {
-	return gulp.src('./build/assets/project_name/bundle.js')
+	return gulp.src('./build/assets/bundle.js')
 		.pipe(gulp.dest(destPath + '/js'));
 });
 
@@ -53,7 +53,7 @@ gulp.task('build-js', () => {
 //----------------------------------------------------
 //------------------- CSS Tasks -----------------------
 gulp.task('build-css', () => {
-	return gulp.src('./build/assets/project_name/styles.css')
+	return gulp.src('./build/assets/styles.css')
 		.pipe(gulp.dest(destPath + '/css'));
 });
 
@@ -74,7 +74,7 @@ gulp.task('build-html', () => {
 	if (environment === 'development') {
 
 		cssSources = [];
-		jsSources = ['/assets/project_name/bundle.js'];
+		jsSources = ['/assets/bundle.js'];
 
 		return stream
 			.pipe(g.replace('<!-- INJECT:css -->', createCSSTags(cssSources)))
@@ -83,15 +83,15 @@ gulp.task('build-html', () => {
 
 	} else {
 
-		cssSources = [`/assets/project_name/css/styles.css?${timestamp}`];
-		jsSources = [`/assets/project_name/js/bundle.js?${timestamp}`];
+		cssSources = [`/assets/css/styles.css?${timestamp}`];
+		jsSources = [`/assets/js/bundle.js?${timestamp}`];
 
 		return stream
 			.pipe(g.replace('<!-- INJECT:css -->', createCSSTags(cssSources)))
 			.pipe(g.replace('<!-- INJECT:js -->', createJSTags(jsSources)))
-			.pipe(g.rename('project_name.html'))
+			.pipe(g.rename('index.html'))
 			.pipe(g.htmlmin(htmlminOpts))
-			.pipe(gulp.dest(destPath.replace('/assets/project_name', '') + '/templates'));
+			.pipe(gulp.dest(destPath));
 
 	}
 

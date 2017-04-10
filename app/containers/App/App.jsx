@@ -1,4 +1,5 @@
 // npm libs
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // react components
@@ -23,7 +24,7 @@ const App = ({
 );
 
 App.propTypes = {
-	children: React.PropTypes.element.isRequired
+	children: PropTypes.element.isRequired
 };
 
 export default App;
