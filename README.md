@@ -3,9 +3,9 @@
 My own React Boilerplate
 
 - webpack-dev-server, browser-sync, hot module replacement
-- react, redux, redux-saga
-- react-router v3
-- immutable-js, immutability-helper, lodash
+- react, redux, redux-thunk
+- react-router-4
+- immutability-helper
 - eslint
 - less, css-modules, extract-text-webpack-plugin
 - gulp for prod tasks

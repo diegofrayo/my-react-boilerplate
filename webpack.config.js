@@ -18,11 +18,11 @@ try {
 
 const babelConfig = {
 	test: /(\.js|.jsx)$/,
-	exclude: /(node_modules|build)/,
+  exclude: /(node_modules|webpack_cache|config)/,
 	use: [{
 		loader: 'babel-loader',
 		options: {
-			plugins: ['syntax-jsx'],
+      plugins: ['syntax-jsx', 'transform-object-rest-spread'],
 			presets: ['es2015', 'react']
 		}
 	}]
@@ -73,11 +73,11 @@ const config = Object.assign({
 	},
 	module: {
 		rules: [babelConfig, {
-			exclude: /(node_modules|build)/,
+      exclude: /(node_modules|webpack_cache|config)/,
 			loader: 'eslint-loader',
 			test: /(\.js|.jsx)$/
 		}, {
-			exclude: [/(node_modules|build)/, path.resolve(__dirname, 'app/styles/util.less')],
+			exclude: [/(node_modules|webpack_cache|build)/, path.resolve(__dirname, 'app/styles/util.less')],
 			test: /(\.less)$/,
 			use: extractLESS.extract({
 				fallback: 'style-loader',
@@ -98,7 +98,7 @@ const config = Object.assign({
 				}]
 			})
 		}, {
-			exclude: /(node_modules|build)/,
+			exclude: /(node_modules|webpack_cache|build)/,
 			test: [path.resolve(__dirname, 'app/styles/util.less')],
 			use: extractLESS.extract({
 				fallback: 'style-loader',

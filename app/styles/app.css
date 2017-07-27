@@ -1,0 +1,89 @@
+/* Reset */
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, p, td, th{
+  cursor: default;
+}
+
+span, img{
+  vertical-align: middle;
+}
+
+/* Util */
+.u-text-center{
+  text-align: center !important;
+}
+
+.u-text-right{
+  text-align: right !important;
+}
+
+.u-hidden{
+  display: none !important;
+}
+
+.u-pos-relative{
+  position: relative !important;
+}
+
+.u-clearfix{
+  overflow: auto !important;
+}
+
+.u-pull-right{
+  float: right !important;
+}
+
+.u-top-right{
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+}
+
+.u-max-height-wrapper{
+  bottom: 0;
+  left: 0;
+  padding: 16px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+/* Calendar */
+.rbc-event{
+  background-color: transparent;
+  padding: 0;
+}
+
+.rbc-event.rbc-selected {
+  background-color: transparent;
+  box-shadow: 0px 1px 1px 2px #969696;
+}
+
+.rbc-event-content {
+  padding: 2px 5px;
+}
+
+.rbc-event-content[title="Available"] {
+  background-color: green;
+}
+
+.rbc-event-content[title="No available"] {
+  background-color: red;
+}
+
+.rbc-event-content[title="Check-out"] {
+  background-color: gray;
+}
+
+.rbc-event-content[title="Check-in"] {
+  background-color: darkgray;
+}

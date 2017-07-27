@@ -1,42 +1,54 @@
 /* eslint consistent-return: "off" */
-/* eslint indent: "off" */
 
 // npm libs
 import update from 'immutability-helper';
 
 // redux
 import {
-	MY_CONSTANT
+  MY_ENTITY_GET_SUCCESS,
+  MY_ENTITY_DELETE_SUCCESS,
 } from 'constants/index';
 
-// js utils
-import Utilities from 'utils/utilities/Utilities';
+// utils
+import Utilities from 'utils/utilities';
 
-export default function myReducer(state = {}, action = {}) {
+const initialState = {
+  records: [],
+};
 
-	switch (action.type) {
+export default function myEntityReducer(state = initialState, action = {}) {
 
-		case MY_CONSTANT:
-			return update(state, {
-				errorMessage: {
-					$set: '',
-				},
-				myArray: {
-					$apply: (myArray) => {
-						const newArray = update(myArray, {
-							$push: [action.object]
-						});
-						return newArray.sort(Utilities.sortBy);
-					}
-				},
-				status: {
-					$set: 'SUCCESS',
-				}
-			});
+  switch (action.type) {
 
-		default:
-			return state;
+    case MY_ENTITY_GET_SUCCESS:
+      return update(state, {
+        records: {
+          $set: [].concat(action.payload),
+        },
+      });
 
-	}
+    case MY_ENTITY_DELETE_SUCCESS:
+      return update(state, {
+        records: {
+          $set: state.records.filter((myEntity) => {
+            if (myEntity.id !== action.myEntityId) {
+              return myEntity;
+            }
+          }),
+        },
+        myArray: {
+          $apply: (myArray) => {
+            const newArray = update(myArray, {
+              $push: [action.object],
+            });
+            return newArray.sort(Utilities.sortBy);
+          },
+        },
+      });
+
+    default:
+      return state;
+
+  }
 
 }

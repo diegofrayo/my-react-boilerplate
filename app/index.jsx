@@ -1,23 +1,22 @@
 // npm libs
 import React from 'react';
-import {
-	render
-} from 'react-dom';
+import ReactDOM from 'react-dom';
 
-// react components
-import RootContainer from 'containers/Root/Root';
+// containers
+import App from 'containers/App';
 
 // styles
-import 'styles/base.less';
+// import 'styles/app.css';
+// import 'styles/base.less';
 
-const target = document.getElementById('parent-container');
-const environment = APP_SETTINGS.environment;
+const target = document.getElementById('app');
 
-render(<RootContainer environment={environment} />, target);
+ReactDOM.render(<App />, target);
 
 if (module.hot) {
-	module.hot.accept('./containers/Root/Root.jsx', () => {
-		const NextRootContainer = require('./containers/Root/Root.jsx').default;
-		render(<NextRootContainer environment={environment} />, target);
-	});
+  module.hot.accept('./containers/App.jsx', () => {
+    const NextApp = require('./containers/App.jsx').default;
+    ReactDOM.render(<NextApp />, target);
+  });
 }
+
