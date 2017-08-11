@@ -4,7 +4,15 @@ import {
   FORM_SET_VALUES,
   FORM_VALIDATE_ALL,
   FORM_VALIDATE_INPUT,
+  FORM_SET_ERRORS,
 } from 'constants/index';
+
+export function formSetErrors(formErrors) {
+  return {
+    type: FORM_SET_ERRORS,
+    formErrors,
+  };
+}
 
 export function formValidateAll(formValues, formConfig) {
   return {
@@ -31,7 +39,7 @@ export function formSetInputValue(name, value) {
 }
 
 export function formSetInputValueAndValidate(name, value, formConfig) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(formSetInputValue(name, value));
     dispatch(formValidateInput({
       name,

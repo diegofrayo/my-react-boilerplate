@@ -1,6 +1,6 @@
 // redux
 import {
-  APP_SET_LOADING_STATUS,
+  APP_UPDATE_STATUS,
   APP_SET_FAILURE_MESSAGE,
   APP_SET_SUCCESS_MESSAGE,
   APP_RESET_OUTPUT_MESSAGE,
@@ -9,9 +9,10 @@ import {
   APP_SHOW_DIALOG,
 } from 'constants/index';
 
-export function setLoadingStatus() {
+export function updateAppStatus(status) {
   return {
-    type: APP_SET_LOADING_STATUS,
+    type: APP_UPDATE_STATUS,
+    status,
   };
 }
 

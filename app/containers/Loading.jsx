@@ -7,11 +7,7 @@ import Loader from 'components/Loader';
 
 const Loading = () => (
   <div>
-    <div className="u-pos-relative">
-      <div>
-        <Loader status="LOADING" />
-      </div>
-    </div>
+    <Loader status="LOADING" />
   </div>
 );
 

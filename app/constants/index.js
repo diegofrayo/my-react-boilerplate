@@ -2,17 +2,13 @@
  * App Routes
  */
 export const routes = {
-  createMyEntityEditRoute: id => `/myEntity/${id}/edit`,
-  createMyEntityProfileEditRoute: id => `/myEntity-profile/${id}/edit`,
-  createMyEntityAvailabilityRoute: id => `/myEntity/${id}/availability`,
-  createMyEntityRateRoute: id => `/myEntity/${id}/rate`,
-  createUserEditRoute: id => `/user/${id}/edit`,
+  createMyEntityUpdateRoute: id => `/my-entity/${id}/update`,
+  createMyEntityAvailabilityRoute: id => `/my-entity/${id}/availability`,
   HOME: '/',
-  MY_ENTITY_CREATE: '/myEntity/create',
-  MY_ENTITY_EDIT: '/myEntity/:id/edit',
-  MY_ENTITY_LIST: '/myEntity/list',
-  MY_ENTITY_AVAILABILITY: '/myEntity/:id/availability',
-  MY_ENTITY_RATE: '/myEntity/:id/rate',
+  MY_ENTITY_CREATE: '/my-entity/create',
+  MY_ENTITY_UPDATE: '/my-entity/:id/update',
+  MY_ENTITY_LIST: '/my-entity/list',
+  MY_ENTITY_AVAILABILITY: '/my-entity/:id/availability',
   LOG_IN: '/login',
 };
 
@@ -57,22 +53,22 @@ export const FORM_VALIDATE_INPUT = 'FORM_VALIDATE_INPUT';
 /*
  * Entity
  */
-// export const USER_CREATE_FAILURE = 'USER_CREATE_FAILURE';
-// export const USER_CREATE_REQUEST = 'USER_CREATE_REQUEST';
-// export const USER_CREATE_SUCCESS = 'USER_CREATE_SUCCESS';
+// export const MY_ENTITY_CREATE_FAILURE = 'MY_ENTITY_CREATE_FAILURE';
+// export const MY_ENTITY_CREATE_REQUEST = 'MY_ENTITY_CREATE_REQUEST';
+// export const MY_ENTITY_CREATE_SUCCESS = 'MY_ENTITY_CREATE_SUCCESS';
 
-// export const USER_GET_FAILURE = 'USER_GET_FAILURE';
-// export const USER_GET_REQUEST = 'USER_GET_REQUEST';
-export const USER_GET_SUCCESS = 'USER_GET_SUCCESS';
+// export const MY_ENTITY_GET_FAILURE = 'MY_ENTITY_GET_FAILURE';
+// export const MY_ENTITY_GET_REQUEST = 'MY_ENTITY_GET_REQUEST';
+export const MY_ENTITY_GET_SUCCESS = 'MY_ENTITY_GET_SUCCESS';
 
-// export const USER_EDIT_FAILURE = 'USER_EDIT_FAILURE';
-// export const USER_EDIT_REQUEST = 'USER_EDIT_REQUEST';
-// export const USER_EDIT_SUCCESS = 'USER_EDIT_SUCCESS';
+// export const MY_ENTITY_EDIT_FAILURE = 'MY_ENTITY_EDIT_FAILURE';
+// export const MY_ENTITY_EDIT_REQUEST = 'MY_ENTITY_EDIT_REQUEST';
+// export const MY_ENTITY_EDIT_SUCCESS = 'MY_ENTITY_EDIT_SUCCESS';
 
-// export const USER_GET_BY_ID_FAILURE = 'USER_GET_BY_ID_FAILURE';
-// export const USER_GET_BY_ID_REQUEST = 'USER_GET_BY_ID_REQUEST';
-// export const USER_GET_BY_ID_SUCCESS = 'USER_GET_BY_ID_SUCCESS';
+// export const MY_ENTITY_GET_BY_ID_FAILURE = 'MY_ENTITY_GET_BY_ID_FAILURE';
+// export const MY_ENTITY_GET_BY_ID_REQUEST = 'MY_ENTITY_GET_BY_ID_REQUEST';
+// export const MY_ENTITY_GET_BY_ID_SUCCESS = 'MY_ENTITY_GET_BY_ID_SUCCESS';
 
-// export const USER_DELETE_FAILURE = 'USER_DELETE_FAILURE';
-// export const USER_DELETE_REQUEST = 'USER_DELETE_REQUEST';
-export const USER_DELETE_SUCCESS = 'USER_DELETE_SUCCESS';
+// export const MY_ENTITY_DELETE_FAILURE = 'MY_ENTITY_DELETE_FAILURE';
+// export const MY_ENTITY_DELETE_REQUEST = 'MY_ENTITY_DELETE_REQUEST';
+export const MY_ENTITY_DELETE_SUCCESS = 'MY_ENTITY_DELETE_SUCCESS';

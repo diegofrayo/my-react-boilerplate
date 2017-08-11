@@ -6,8 +6,7 @@ import ReactDOM from 'react-dom';
 import App from 'containers/App';
 
 // styles
-// import 'styles/app.css';
-// import 'styles/base.less';
+// import 'styles/reset.less';
 
 const target = document.getElementById('app');
 

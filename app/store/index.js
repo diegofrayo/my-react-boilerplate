@@ -8,6 +8,7 @@ import {
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
+import createSagaMiddleware from 'redux-saga';
 import {
   routerMiddleware,
 } from 'react-router-redux';
@@ -16,13 +17,24 @@ import {
 import apiMiddleware from 'middlewares/apiMiddleware';
 import reducers from 'reducers';
 
+// sagas
+import rootSagas from 'sagas';
+
 // react router config
 const history = createHistory();
 const reduxRouterMiddleware = routerMiddleware(history);
-
+const sagaMiddleware = createSagaMiddleware();
 const reduxDevTool = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : undefined;
 
-const createStoreWithMiddleware = applyMiddleware(apiMiddleware, thunk, logger, reduxRouterMiddleware)(createStore);
+const middlewares = [apiMiddleware, thunk, reduxRouterMiddleware, sagaMiddleware];
+
+if (APP_SETTINGS.environment === 'development') {
+  middlewares.push(logger);
+}
+
+sagaMiddleware.run(rootSagas);
+
+const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
 
 export const store = createStoreWithMiddleware(reducers, {}, reduxDevTool);
 export {

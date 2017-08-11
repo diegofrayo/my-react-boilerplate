@@ -11,7 +11,6 @@ import appReducer from 'reducers/app';
 import authReducer from 'reducers/auth';
 import formReducer from 'reducers/form';
 import myReducerReducer from 'reducers/myReducer';
-import userReducer from 'reducers/user';
 
 export default combineReducers({
   app: appReducer,
@@ -19,5 +18,4 @@ export default combineReducers({
   form: formReducer,
   myReducer: myReducerReducer,
   router: routerReducer,
-  user: userReducer,
 });

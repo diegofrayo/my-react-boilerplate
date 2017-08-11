@@ -1,10 +1,6 @@
-/*
- * Jonatan Alava middleware
- */
-
 export default function apiMiddleware({
   dispatch,
-  getState,
+  // getState,
 }) {
   return next => ((action) => {
 

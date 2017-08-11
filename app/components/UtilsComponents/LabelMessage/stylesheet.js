@@ -1,6 +1,11 @@
-export default {
+// material-ui
+import {
+  createStyleSheet,
+} from 'material-ui/styles';
+
+export default createStyleSheet('LabelMessage', theme => ({
   container: {
-    marginBottom: 24,
+    marginBottom: theme.spacing.unit * 3,
     padding: 20,
     width: '100%',
   },
@@ -18,4 +23,4 @@ export default {
     borderColor: '#d6e9c6',
     color: '#3c763d',
   },
-};
+}));

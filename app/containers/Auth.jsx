@@ -16,25 +16,11 @@ import {
   routes,
 } from 'constants/index';
 
-const authHelper = (Component, isAuthRequired, componentName) => {
-
-  // class AuthHOC extends React.Component {
-  //   render() {
-  //     if (this.props.authState.isLoggedIn === 'LOADING') {
-  //       return <Loading />;
-  //     } else if (this.props.authState.isLoggedIn === isAuthRequired) {
-  //       return <Component />;
-  //     } else if (isAuthRequired || this.props.authState.isLoggedIn === AUTH_LOG_OUT_REQUEST) {
-  //       return <Redirect to={{ pathname: routes.LOG_IN }} />;
-  //     }
-  //     return <Redirect to={{ pathname: routes.HOME }} />;
-  //   }
-  // }
+const authHelper = (Component, isAuthRequired) => {
 
   const AuthHOC = ({
     authState,
   }) => {
-    // console.log(componentName);
     if (authState.isLoggedIn === 'LOADING') {
       return <Loading />;
     } else if (authState.isLoggedIn === isAuthRequired) {

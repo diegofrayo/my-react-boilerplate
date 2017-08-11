@@ -2,8 +2,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// material-ui
+import FormControl from 'material-ui/Form/FormControl';
+import FormHelperText from 'material-ui/Form/FormHelperText';
+import FormLabel from 'material-ui/Form/FormLabel';
+import Grid from 'material-ui/Grid';
+import Input from 'material-ui/Input';
+import InputLabel from 'material-ui/Input/InputLabel';
+import withStyles from 'material-ui/styles/withStyles';
+
 // styles
-const StyleSheet = {};
+import StyleSheet from './stylesheet';
 
 class FormInput extends React.Component {
 
@@ -26,6 +35,7 @@ class FormInput extends React.Component {
   render() {
 
     const {
+      classes,
       error = '',
       label,
       name,
@@ -35,24 +45,27 @@ class FormInput extends React.Component {
     } = this.props;
 
     return (
-      <div item xs={12} className="u-pos-relative">
-        <div
-          className={StyleSheet.formControl}
+      <Grid item xs={12} className="u-pos-relative">
+        <FormControl
+          className={classes.formControl}
           error={!(error === undefined || error === '')}
+          fullWidth
           style={style}
         >
-          { label && <label htmlFor={name}>{label}</label> }
-          <input
+          { (label && type !== 'date') && <InputLabel htmlFor={name}>{label}</InputLabel> }
+          { (label && type === 'date') && <FormLabel htmlFor={name}>{label}</FormLabel> }
+          <Input
             id={name}
             name={name}
             onChange={this.onChange}
             type={type}
             value={value}
             onKeyPress={this.onPressEnterKey}
+            fullWidth
           />
-          { error && <p>{error}</p> }
-        </div>
-      </div>
+          { error && <FormHelperText>{error}</FormHelperText> }
+        </FormControl>
+      </Grid>
     );
 
   }
@@ -60,6 +73,7 @@ class FormInput extends React.Component {
 }
 
 FormInput.propTypes = {
+  classes: PropTypes.object.isRequired,
   error: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
@@ -79,4 +93,4 @@ FormInput.defaultProps = {
   value: '',
 };
 
-export default FormInput;
+export default withStyles(StyleSheet)(FormInput);

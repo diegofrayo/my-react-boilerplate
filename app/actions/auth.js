@@ -6,7 +6,8 @@ import {
   routes,
 } from 'constants/index';
 import {
-  setLoadingStatus as setLoadingStatusAction,
+  updateAppStatus as updateAppStatusAction,
+  resetOutputMessage as resetOutputMessageAction,
   setFailureMessage as setFailureMessageAction,
   setSuccessMessage as setSuccessMessageAction,
 } from 'actions/app';
@@ -64,7 +65,7 @@ const backendLogIn = (dispatch, firebaseUser) => {
 };
 
 export function logOutRequest() {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({
       type: AUTH_LOG_OUT_REQUEST,
     });
@@ -82,10 +83,11 @@ export function logOutSuccess() {
 export function logInRequest(formValues, formConfig) {
   return (dispatch, getState) => {
 
-    dispatch(setLoadingStatusAction());
     dispatch(formValidateAllAction(formValues, formConfig));
 
     if (getState().form.errors.number === 0) {
+      dispatch(updateAppStatusAction());
+      dispatch(resetOutputMessageAction());
       LogInAPI.firebaseLogIn(formValues.email, formValues.password)
         .catch((error) => {
           dispatch(setFailureMessageAction(error));

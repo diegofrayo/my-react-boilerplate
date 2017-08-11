@@ -54,22 +54,24 @@ export function validateForm(formValues, formConfig) {
 
 export function validateInput(errors, input, formConfig) {
 
-  const newErrors = Object.assign({}, errors);
+  const newErrors = Object.assign({}, errors, {
+    number: 0,
+  });
 
   formConfig.forEach((formInput) => {
     if (formInput.name === input.name) {
       const isInputValid = isValid(formInput, input.value);
       if (!isInputValid) {
         newErrors.values[formInput.name] = formInput.config.message;
-        newErrors.number += 1;
       } else {
-        if (newErrors.values[formInput.name]) {
-          newErrors.values[formInput.name] = undefined;
-        }
-        if (newErrors.number > 0) {
-          newErrors.number -= 1;
-        }
+        newErrors.values[formInput.name] = undefined;
       }
+    }
+  });
+
+  Object.keys(newErrors.values).forEach((key) => {
+    if (newErrors.values[key]) {
+      newErrors.number += 1;
     }
   });
 
@@ -94,17 +96,4 @@ export function normalizeFormValues(formValues, formConfig) {
   });
 
   return newValues;
-}
-
-export function arrayToString(array) {
-
-  const typeValue = typeof array;
-
-  if (typeValue === 'string' || typeValue === 'number') {
-    return `${typeValue}`;
-  } else if (Array.isArray(array)) {
-    return `${array.length}`;
-  }
-
-  return '';
 }

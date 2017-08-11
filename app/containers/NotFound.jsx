@@ -1,12 +1,11 @@
 // npm libs
 import React from 'react';
-import PropTypes from 'prop-types';
 import withRouter from 'react-router-dom/withRouter';
 
 // components
 import VerticalCenterWrapper from 'components/VerticalCenterWrapper';
 
-const StyleSheet = {
+const styles = {
   number: {
     fontSize: 100,
   },
@@ -20,22 +19,18 @@ const StyleSheet = {
 };
 
 const NotFound = () => (
-  <div>
-    <div className="u-pos-relative">
-      <div className={StyleSheet.paper}>
-        <VerticalCenterWrapper>
-          {() => (
-            <div>
-              <p className={StyleSheet.number}>404</p>
-              <p className={StyleSheet.title}>Oops! Page not found</p>
-              <p className={StyleSheet.description}>
-                Sorry, the page you are looking for does not exist.
-              </p>
-            </div>
-          )}
-        </VerticalCenterWrapper>
-      </div>
-    </div>
+  <div className="u-pos-relative">
+    <VerticalCenterWrapper>
+      {() => (
+        <div>
+          <p style={styles.number}>404</p>
+          <p style={styles.title}>Oops! Page not found</p>
+          <p style={styles.description}>
+            Sorry, the page you are looking for does not exist.
+          </p>
+        </div>
+      )}
+    </VerticalCenterWrapper>
   </div>
 );
 

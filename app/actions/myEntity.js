@@ -1,17 +1,20 @@
 // redux
 import {
   APP_SET_FAILURE_MESSAGE,
-  APP_SET_LOADING_STATUS,
   APP_SET_SUCCESS_MESSAGE,
+  APP_RESET_OUTPUT_MESSAGE,
+  APP_UPDATE_STATUS,
   APP_HIDE_DIALOG,
   APP_UPDATE_CURRENT_OBJECT,
   FORM_SET_VALUES,
-  MY_ENTITY_GET_SUCCESS,
   MY_ENTITY_DELETE_SUCCESS,
+  MY_ENTITY_GET_SUCCESS,
+  MY_ENTITY_SEARCH_SUCCESS,
+  MY_ENTITY_CLEAN_ALL,
   routes,
 } from 'constants/index';
 import {
-  setLoadingStatus as setLoadingStatusAction,
+  updateAppStatus as updateAppStatusAction,
   setFailureMessage as setFailureMessageAction,
   setSuccessMessage as setSuccessMessageAction,
   updateCurrentObject as updateCurrentObjectAction,
@@ -28,10 +31,10 @@ import {
   MyEntityAPI,
 } from 'utils/api';
 
-export function getMyEntitiesRequest() {
+export function getPropertiesRequest() {
   return {
     types: {
-      request: [APP_SET_LOADING_STATUS],
+      request: [APP_UPDATE_STATUS, APP_RESET_OUTPUT_MESSAGE],
       success: [APP_SET_SUCCESS_MESSAGE, MY_ENTITY_GET_SUCCESS],
       failure: [APP_SET_FAILURE_MESSAGE],
     },
@@ -39,14 +42,14 @@ export function getMyEntitiesRequest() {
   };
 }
 
-export function getMyEntitiesSuccess(myEntities) {
+export function getPropertiesSuccess(properties) {
   return {
     type: MY_ENTITY_GET_SUCCESS,
-    payload: myEntities,
+    payload: properties,
   };
 }
 
-// export function getMyEntitiesFailure() {
+// export function getPropertiesFailure() {
 //   return {
 //     type: MY_ENTITY_GET_REQUEST,
 //   };
@@ -59,7 +62,7 @@ export function createMyEntityRequest(myEntity, formConfig) {
 
     if (getState().form.errors.number === 0) {
 
-      dispatch(setLoadingStatusAction());
+      dispatch(updateAppStatusAction());
 
       MyEntityAPI.create(myEntity)
         .then(() => {
@@ -91,7 +94,7 @@ export function createMyEntityRequest(myEntity, formConfig) {
 export function getMyEntityByIdRequest(id, formConfig) {
   return {
     types: {
-      request: [APP_SET_LOADING_STATUS],
+      request: [APP_UPDATE_STATUS, APP_RESET_OUTPUT_MESSAGE],
       success: ((actionsArray) => {
         if (formConfig) {
           actionsArray.push(FORM_SET_VALUES);
@@ -128,9 +131,9 @@ export function editMyEntityRequest(myEntity, config = {}) {
 
     if (getState().form.errors.number === 0 || !config.formConfig) {
 
-      dispatch(setLoadingStatusAction());
+      dispatch(updateAppStatusAction());
 
-      MyEntityAPI.edit(myEntity)
+      MyEntityAPI.update(myEntity)
         .then(() => {
 
           dispatch(setSuccessMessageAction('The MyEntity has been updated successfully.', config.outputMessageUIType));
@@ -169,7 +172,7 @@ export function editMyEntityRequest(myEntity, config = {}) {
 export function deleteMyEntityRequest(id) {
   return {
     types: {
-      request: [APP_SET_LOADING_STATUS, APP_HIDE_DIALOG],
+      request: [APP_UPDATE_STATUS, APP_RESET_OUTPUT_MESSAGE, APP_HIDE_DIALOG],
       success: [APP_SET_SUCCESS_MESSAGE, MY_ENTITY_DELETE_SUCCESS],
       failure: [APP_SET_FAILURE_MESSAGE],
     },
@@ -192,5 +195,28 @@ export function deleteMyEntitySuccess(payload) {
 // export function deleteMyEntityFailure() {
 //   return {
 //     type: MY_ENTITY_DELETE_FAILURE,
+//   };
+// }
+
+export function myEntitySearchRequest(params) {
+  return {
+    types: {
+      request: [APP_UPDATE_STATUS, APP_RESET_OUTPUT_MESSAGE, MY_ENTITY_CLEAN_ALL],
+      success: [APP_SET_SUCCESS_MESSAGE, MY_ENTITY_SEARCH_SUCCESS],
+      failure: [APP_SET_FAILURE_MESSAGE],
+    },
+    callAPI: MyEntityAPI.search(params),
+  };
+}
+
+// export function myEntitySearchSuccess() {
+//   return {
+//     type: MY_ENTITY_SEARCH_SUCCESS,
+//   };
+// }
+
+// export function myEntitySearchFailure() {
+//   return {
+//     type: MY_ENTITY_SEARCH_FAILURE,
 //   };
 // }

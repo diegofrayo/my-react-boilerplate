@@ -14,10 +14,10 @@ import {
 } from 'react-redux';
 
 // containers
+import authHelper from 'containers/Auth';
+import Home from 'containers/Home';
 import LogIn from 'containers/LogIn';
 import NotFound from 'containers/NotFound';
-import Home from 'containers/Home';
-import authHelper from 'containers/Auth';
 
 // components
 import Header from 'components/Header';
@@ -64,8 +64,8 @@ const renderApp = () => (
           <div style={styles.contentInner}>
             <ConnectedRouter history={history}>
               <Switch>
-                <Route exact path={routes.HOME} component={authHelper(Home, true, 'Home')} />
-                <Route exact path={routes.LOG_IN} component={authHelper(LogIn, false, 'LogIn')} />
+                <Route exact path={routes.HOME} component={authHelper(Home, true)} />
+                <Route exact path={routes.LOG_IN} component={authHelper(LogIn, false)} />
                 <Route component={NotFound} />
               </Switch>
             </ConnectedRouter>

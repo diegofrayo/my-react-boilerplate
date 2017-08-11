@@ -2,17 +2,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// material-ui
+import CircularProgress from 'material-ui/Progress/CircularProgress';
+
 // components
 import VerticalCenterWrapper from 'components/VerticalCenterWrapper';
 
 const Loader = ({
-  backgroundColor,
   status,
 }) => {
   if (status === 'LOADING') {
     return (
-      <VerticalCenterWrapper backgroundColor={backgroundColor}>
-        {() => <img src="/assets/images/loader.svg" alt="loading..." />}
+      <VerticalCenterWrapper
+        style={{
+          bottom: 0,
+          left: 0,
+          position: 'absolute',
+          right: 0,
+          top: 0,
+        }}
+      >
+        {() => <CircularProgress />}
       </VerticalCenterWrapper>
     );
   }
@@ -20,12 +30,7 @@ const Loader = ({
 };
 
 Loader.propTypes = {
-  backgroundColor: PropTypes.string,
   status: PropTypes.string.isRequired,
-};
-
-Loader.defaultProps = {
-  backgroundColor: '',
 };
 
 export default Loader;

@@ -4,7 +4,7 @@ import update from 'immutability-helper';
 // redux
 import {
   APP_SET_FAILURE_MESSAGE,
-  APP_SET_LOADING_STATUS,
+  APP_UPDATE_STATUS,
   APP_SET_SUCCESS_MESSAGE,
   APP_RESET_OUTPUT_MESSAGE,
   APP_HIDE_DIALOG,
@@ -25,7 +25,7 @@ const initialState = {
     uiType: 'LABEL', // 'LABEL' || 'TOAST'
   },
   showDialog: false,
-  status: 'NORMAL', // NORMAL || LOADING
+  status: 'LOADED', // LOADED || LOADING
 };
 
 export default function appReducer(state = initialState, action = {}) {
@@ -35,24 +35,17 @@ export default function appReducer(state = initialState, action = {}) {
     case '@@router/LOCATION_CHANGE':
       return initialState;
 
-    case APP_SET_LOADING_STATUS:
+    case APP_UPDATE_STATUS:
       return update(state, {
         status: {
-          $set: 'LOADING',
-        },
-        outputMessage: {
-          $set: {
-            type: '',
-            description: '',
-            uiType: 'LABEL',
-          },
+          $set: action.status || 'LOADING',
         },
       });
 
     case APP_SET_FAILURE_MESSAGE:
       return update(state, {
         status: {
-          $set: 'NORMAL',
+          $set: 'LOADED',
         },
         outputMessage: {
           $set: {
@@ -66,7 +59,7 @@ export default function appReducer(state = initialState, action = {}) {
     case APP_SET_SUCCESS_MESSAGE:
       return update(state, {
         status: {
-          $set: 'NORMAL',
+          $set: 'LOADED',
         },
         outputMessage: {
           $set: {

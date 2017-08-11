@@ -29,15 +29,15 @@ try {
 
 //----------------------------------------------------
 //------------------- Util Functions -----------------
-function createCSSTags(cssSources) {
+const createCSSTags = (cssSources) => {
 	const createTag = (url) => `<link href="${url}" rel="stylesheet"/>\n\t`;
 	return cssSources.map((url) => createTag(url)).join('');
-}
+};
 
-function createJSTags(jsSources) {
+const createJSTags = (jsSources) => {
 	const createTag = (url) => `<script src="${url}"></script>\n\t`;
 	return jsSources.map((url) => createTag(url)).join('');
-}
+};
 
 
 

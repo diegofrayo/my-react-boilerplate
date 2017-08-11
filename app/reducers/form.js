@@ -7,6 +7,7 @@ import {
   FORM_SET_VALUES,
   FORM_VALIDATE_ALL,
   FORM_VALIDATE_INPUT,
+  FORM_SET_ERRORS,
 } from 'constants/index';
 
 // utils
@@ -58,6 +59,13 @@ export default function formReducer(state = initialState, action = {}) {
       return update(state, {
         errors: {
           $set: validateInput(state.errors, action.input, action.formConfig),
+        },
+      });
+
+    case FORM_SET_ERRORS:
+      return update(state, {
+        errors: {
+          $set: action.formErrors,
         },
       });
 
