@@ -5,7 +5,7 @@
   "scripts": {
     "start:all": "gulp build-dev && node config/webpack.config.dev.server.js",
     "start": "cross-env NODE_ENV=development npm run start:all",
-    "build:all": "webpack -p && gulp build-live",
+    "build:all": "webpack -p --env.disableLint && gulp build-live",
     "build": "cross-env NODE_ENV=production npm run build:all"
   },
   "devDependencies": {
