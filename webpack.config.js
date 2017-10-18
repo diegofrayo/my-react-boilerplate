@@ -65,7 +65,7 @@ module.exports = (env) => {
     plugins.unshift(new webpack.LoaderOptionsPlugin({
       options: {
         eslint: {
-          configFile: path.join(__dirname, './config/config.eslint.json')
+          configFile: path.join(__dirname, './config/.eslintrc')
         }
       }
     }));

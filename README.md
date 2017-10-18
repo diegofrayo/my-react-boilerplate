@@ -17,7 +17,7 @@ My own React Boilerplate
 
 - `npm install`
 
-- Select which packages you want install: ```npm install --save classnames firebase history immutable immutability-helper react react-dom react-redux react-router@^3.0.0 react-router-dom@^4.1.1 react-router-redux@^5.0.0-alpha.6 redux redux-logger redux-saga redux-thunk reselect styled-components```
+- Select which packages you want install: ```npm install --save classnames firebase history immutable immutability-helper react react-dom react-redux react-router@^4.0.0 react-router-dom@^4.1.1 react-router-redux@^5.0.0-alpha.6 redux redux-logger redux-saga redux-thunk reselect styled-components```
 
 --------------
 

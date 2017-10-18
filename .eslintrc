@@ -1,9 +1,11 @@
 {
-  "extends": ["eslint:all", "plugin:react/recommended", "airbnb"],
+  "extends": ["eslint:all", "plugin:react/recommended", "airbnb", "prettier"],
+  "parser": "babel-eslint",
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 2017,
     "sourceType": "module",
     "ecmaFeatures": {
+      "classes": true,
       "jsx": true,
       "spread": true,
       "experimentalObjectRestSpread": true,
@@ -55,5 +57,5 @@
       "allowTemplateLiterals": true
     }]
   },
-  "plugins": ["react"]
+  "plugins": ["react", "prettier"]
 }
