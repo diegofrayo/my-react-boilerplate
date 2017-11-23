@@ -65,10 +65,7 @@ gulp.task('build-html', () => {
 
 	const timestamp = +new Date();
 
-	let stream = gulp.src('./app/index.html')
-		.pipe(g.htmlhint('./config.htmlhint.json'))
-		.pipe(g.htmlhint.reporter());
-
+	let stream = gulp.src('./app/index.html');
 	let cssSources, jsSources;
 
 	if (environment === 'development') {

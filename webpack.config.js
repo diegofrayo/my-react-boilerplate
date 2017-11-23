@@ -1,11 +1,10 @@
-module.exports = (env) => {
+module.exports = (env = {}) => {
 
   const fs = require('fs');
   const path = require('path');
   const webpack = require('webpack');
-  const webpackConfigUtils = require('./config/webpack.config.utils.js');
 
-  const ENVIRONMENT = process.env.NODE_ENV.trim();
+  const ENVIRONMENT = process.env.NODE_ENV;
   let environmentConfig;
   let isDevelopment;
   let settings = {};
@@ -42,12 +41,12 @@ module.exports = (env) => {
   ];
 
   if (ENVIRONMENT === 'development') {
-    environmentConfig = require('./config/webpack.config.dev.js');
     isDevelopment = true;
+    environmentConfig = require('./config/webpack.config.dev.js');
     environmentConfig.configureBabel(babelConfig);
   } else {
-    environmentConfig = require('./config/webpack.config.prod.js');
     isDevelopment = false;
+    environmentConfig = require('./config/webpack.config.prod.js');
   }
 
   const config = Object.assign({}, {
@@ -57,7 +56,10 @@ module.exports = (env) => {
       modules: [path.resolve(__dirname, 'app'), 'node_modules']
     },
     module: {
-      rules: [babelConfig]
+      rules: [babelConfig, {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }]
     }
   }, environmentConfig.webpackConfig);
 
@@ -65,7 +67,7 @@ module.exports = (env) => {
     plugins.unshift(new webpack.LoaderOptionsPlugin({
       options: {
         eslint: {
-          configFile: path.join(__dirname, './config/.eslintrc')
+          configFile: path.join(__dirname, './.eslintrc')
         }
       }
     }));

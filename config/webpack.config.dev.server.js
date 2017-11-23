@@ -18,7 +18,7 @@ module.exports = task('webpack.config.dev.server', () => new Promise((resolve) =
 
 	let count = 0;
 	const bs = Browsersync.create();
-	const webpackConfig = require('./../webpack.config');
+	const webpackConfig = require('./../webpack.config')(process.env);
 	const compiler = webpack(webpackConfig);
 	const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
 		publicPath: webpackConfig.output.publicPath
