@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "My own React Boilerplate",
   "keywords": [
-    "react",
-    "boilerplate"
+    "react"
   ],
   "homepage": "https://github.com/diegofrayo/my-react-boilerplate#readme",
   "bugs": {
@@ -72,21 +71,7 @@
     "webpack-hot-middleware": "^2.18.0",
     "whatwg-fetch": "^2.0.3"
   },
-  "dependencies": {
-    "classnames": "^2.2.5",
-    "firebase": "^4.5.2",
-    "history": "^4.7.2",
-    "immutable": "^3.8.2",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-redux": "^5.0.6",
-    "react-router": "^4.0.0",
-    "react-router-dom": "^4.1.1",
-    "react-router-redux": "^5.0.0-alpha.6",
-    "redux": "^3.7.2",
-    "redux-logger": "^3.0.6",
-    "reselect": "^3.0.1"
-  },
+  "dependencies": {},
   "engines": {
     "node": ">=6.11.0"
   },
