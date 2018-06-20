@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // containers
-import Root from 'containers/Root';
+import Root from 'pages';
 
 // theme
 import createStylesheet from 'styles/createStylesheet';
@@ -17,6 +17,7 @@ const styles = createStylesheet(theme => ({
   flex: 1,
   height: '100vh',
 }));
+
 const target = document.createElement('main');
 target.setAttribute(
   'style',
@@ -29,9 +30,9 @@ document.body.appendChild(target);
 ReactDOM.render(<Root />, target);
 
 if (module.hot) {
-  module.hot.accept('./containers/Root.jsx', () => {
+  module.hot.accept('./pages/index.jsx', () => {
     // eslint-disable-next-line
-    const NextApp = require('./containers/Root.jsx').default;
+    const NextApp = require('./pages/index.jsx').default;
     ReactDOM.render(<NextApp />, target);
   });
 }

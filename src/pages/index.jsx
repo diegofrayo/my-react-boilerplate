@@ -1,6 +1,14 @@
 // npm libs
 import React from 'react';
 import PropTypes from 'prop-types';
+import BrowserRouter from 'react-router-dom/BrowserRouter';
+import { AppContainer } from 'react-hot-loader';
+
+// components
+import Header from 'components/layout/Header';
+
+// Routing
+import { Router } from 'routing';
 
 // theme
 import createStylesheet from 'styles/createStylesheet';
@@ -35,4 +43,17 @@ App.propTypes = {
   header: PropTypes.func.isRequired,
 };
 
-export default App;
+const renderApp = () => (
+  <BrowserRouter>
+    <App header={() => <Header />} body={() => <Router />} />
+  </BrowserRouter>
+);
+
+const Root = () => {
+  if (APP_SETTINGS.environment === 'development') {
+    return <AppContainer>{renderApp()}</AppContainer>;
+  }
+  return renderApp();
+};
+
+export default Root;

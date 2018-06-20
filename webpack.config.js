@@ -1,4 +1,5 @@
 module.exports = (env = {}) => {
+
   const fs = require('fs');
   const path = require('path');
   const webpack = require('webpack');
@@ -22,11 +23,14 @@ module.exports = (env = {}) => {
       {
         loader: 'babel-loader',
         options: {
-          plugins: ['syntax-jsx', 'transform-object-rest-spread', 'transform-class-properties'],
-          presets: ['es2015', 'react'],
+          plugins: [
+            require('@babel/plugin-proposal-object-rest-spread'),
+            require('@babel/plugin-syntax-class-properties'),
+          ],
+          presets: ['@babel/preset-env', '@babel/react'],
           env: {
             production: {
-              plugins: ['transform-remove-console'],
+              plugins: ['transform-remove-console', 'react-optimize'],
             },
           },
         },
@@ -34,13 +38,9 @@ module.exports = (env = {}) => {
     ],
   };
 
-  const plugins = [
-    new webpack.DefinePlugin({
-      APP_SETTINGS: JSON.stringify(settings),
-    }),
-  ];
+  const plugins = [new webpack.DefinePlugin({ APP_SETTINGS: JSON.stringify(settings) })];
 
-  const entry = ['babel-polyfill', 'whatwg-fetch', './app/index.jsx'];
+  const entry = ['@babel/polyfill', 'whatwg-fetch', './src/index.jsx'];
 
   if (ENVIRONMENT === 'development') {
     isDevelopment = true;
@@ -57,7 +57,7 @@ module.exports = (env = {}) => {
       context: __dirname,
       resolve: {
         extensions: ['.js', '.jsx'],
-        modules: [path.resolve(__dirname, 'app'), 'node_modules'],
+        modules: [path.resolve(__dirname, 'src'), 'node_modules'],
       },
       module: {
         rules: [
@@ -69,10 +69,11 @@ module.exports = (env = {}) => {
         ],
       },
     },
-    environmentConfig.webpackConfig
+    environmentConfig.webpackConfig,
   );
 
   if (!env.disableLint) {
+
     plugins.unshift(
       new webpack.LoaderOptionsPlugin({
         options: {
@@ -80,10 +81,11 @@ module.exports = (env = {}) => {
             configFile: path.join(__dirname, './.eslintrc'),
           },
         },
-      })
+      }),
     );
+
     config.module.rules.push({
-      exclude: /(node_modules|webpack_cache|config)/,
+      include: /(src)/,
       loader: 'eslint-loader',
       test: /(\.js|.jsx)$/,
     });

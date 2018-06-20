@@ -3,27 +3,20 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-
   webpackConfig: {
     entry: [],
     output: {
       filename: 'bundle.js',
-      path: path.join(__dirname, '../build/assets/'),
-      publicPath: '/assets/'
+      path: path.join(__dirname, '../build'),
     },
+    mode: 'production',
     plugins: [
       new webpack.optimize.OccurrenceOrderPlugin(),
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        }
-      }),
       new CleanWebpackPlugin(['build'], {
         root: path.join(__dirname, '../'),
         verbose: true,
-        dry: false
-      })
-    ]
+        dry: false,
+      }),
+    ],
   },
-
 };

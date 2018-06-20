@@ -14,39 +14,54 @@ const task = require('./task');
 const webpack = require('webpack');
 
 // Build the app and launch it in a browser for testing via Browsersync
-module.exports = task('webpack.config.dev.server', () => new Promise((resolve) => {
+module.exports = task(
+  'webpack.config.dev.server',
+  () =>
+    new Promise(resolve => {
 
-	let count = 0;
-	const bs = Browsersync.create();
-	const webpackConfig = require('./../webpack.config')(process.env);
-	const compiler = webpack(webpackConfig);
-	const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
-		publicPath: webpackConfig.output.publicPath
-	});
+      let count = 0;
 
-	compiler.plugin('done', (stats) => {
-		// Launch Browsersync after the initial bundling is complete
-		count += 1;
-		if (count === 1) {
-			bs.watch('app/index.html').on('change', () => {
-				cmd.get('gulp build-dev', (data) => {
-					bs.reload();
-				});
-			});
-			bs.init({
-				port: process.env.PORT || 4567,
-				ui: {
-					port: Number(process.env.PORT || 4567) + 1
-				},
-				server: {
-					baseDir: 'build',
-					middleware: [
-						webpackDevMiddleware,
-						require('webpack-hot-middleware')(compiler),
-						require('connect-history-api-fallback')(),
-					]
-				},
-			}, resolve);
-		}
-	});
-}));
+      const bs = Browsersync.create();
+      const webpackConfig = require('./../webpack.config')(process.env);
+      const compiler = webpack(webpackConfig);
+      const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
+        publicPath: webpackConfig.output.publicPath,
+        hot: true,
+      });
+
+      compiler.plugin('done', stats => {
+
+        // Launch Browsersync after the initial bundling is complete
+        count += 1;
+
+        if (count === 1) {
+
+          bs.watch('src/index.html').on('change', () => {
+            cmd.get('gulp build-dev', data => bs.reload());
+          });
+
+          bs.init(
+            {
+              port: Number(process.env.PORT) || 4567,
+              ui: {
+                port: Number(process.env.PORT || 4567) + 1,
+              },
+              server: {
+                baseDir: 'build',
+                middleware: [
+                  webpackDevMiddleware,
+                  require('webpack-hot-middleware')(compiler),
+                  require('connect-history-api-fallback')(),
+                ],
+              },
+            },
+            resolve,
+          );
+
+        } // if
+
+      }); // compiler
+
+    }), // promise
+
+);

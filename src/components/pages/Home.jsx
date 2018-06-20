@@ -8,7 +8,7 @@ class Home extends React.Component {
   }
 
   render() {
-    return <section>Hello!</section>;
+    return <section>Hello world!</section>;
   }
 }
 

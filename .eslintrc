@@ -1,6 +1,7 @@
 {
   "extends": ["eslint:all", "plugin:react/recommended", "airbnb", "prettier"],
   "parser": "babel-eslint",
+  "plugins": ["react", "prettier"],
   "parserOptions": {
     "ecmaVersion": 2017,
     "sourceType": "module",
@@ -21,11 +22,6 @@
     "window": true
   },
   "rules": {
-    "import/first": 1,
-    "import/prefer-default-export": 1,
-    "no-restricted-syntax": 1,
-    "no-unused-vars": 1,
-    "quote-props": [1, "as-needed"],
     "array-callback-return": 0,
     "capitalized-comments": 0,
     "class-methods-use-this": 0,
@@ -33,27 +29,42 @@
     "dot-location": 0,
     "eol-last": 0,
     "import/extensions": 0,
+    "import/first": 1,
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,
+    "import/prefer-default-export": 1,
+    "jsx-a11y/anchor-is-valid": 1,
     "jsx-a11y/no-static-element-interactions": 0,
     "linebreak-style": 0,
     "max-len": 0,
     "no-console": 0,
+    "no-restricted-syntax": 1,
+    "no-unused-vars": 1,
     "padded-blocks": 0,
-    "quotes": [1, "single", {
-      "avoidEscape": true,
-      "allowTemplateLiterals": true
-    }],
+    "quote-props": [1, "as-needed"],
+    "quotes": [
+      1,
+      "single",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
+    ],
     "react/jsx-no-duplicate-props": 1,
     "react/no-array-index-key": 1,
     "react/jsx-indent": [1, 2],
     "react/prefer-stateless-function": 1,
-    "react/forbid-prop-types": [1, {
-      "forbid": ["object", "any"]
-    }],
-    "react/no-unused-prop-types": [1, {
-      "skipShapeProps": true
-    }]
-  },
-  "plugins": ["react", "prettier"]
+    "react/forbid-prop-types": [
+      1,
+      {
+        "forbid": ["object", "any"]
+      }
+    ],
+    "react/no-unused-prop-types": [
+      1,
+      {
+        "skipShapeProps": true
+      }
+    ]
+  }
 }
