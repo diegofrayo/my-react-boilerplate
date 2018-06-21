@@ -85,6 +85,7 @@ module.exports = (env = {}) => {
     );
 
     config.module.rules.push({
+      exclude: /(node_modules|webpack_cache|config)/,
       include: /(src)/,
       loader: 'eslint-loader',
       test: /(\.js|.jsx)$/,

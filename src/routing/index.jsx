@@ -2,7 +2,6 @@
 import React from 'react';
 import Route from 'react-router-dom/Route';
 import Switch from 'react-router-dom/Switch';
-import history from 'history';
 
 // pages
 import About from 'pages/About';
@@ -21,8 +20,4 @@ const Router = () => (
   </Switch>
 );
 
-const goTo = route => {
-  history.push(route);
-};
-
-export { Router, routes, goTo };
+export { Router, routes };

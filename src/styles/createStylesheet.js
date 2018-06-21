@@ -5,7 +5,6 @@ const tones = [100, 200, 300, 400, 500, 600, 700];
 export const theme = {
 
   headerHeight: 50,
-  maxWidthContainer: 500,
 
   spacing: {
     base: 10,

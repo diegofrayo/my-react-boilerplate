@@ -20,10 +20,9 @@ const styles = createStylesheet(theme => ({
     flex: 1,
     flexDirection: 'column',
     margin: ' 0 auto',
-    maxWidth: theme.maxWidthContainer,
   },
   bodyContainer: {
-    backgroundColor: theme.color.backgroundPrimary,
+    backgroundColor: theme.color.backgroundPrimary[100],
     color: theme.color.textPrimary,
     flex: 1,
     overflow: 'auto',

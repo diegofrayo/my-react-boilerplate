@@ -15,7 +15,7 @@ My own React Boilerplate
 
 - Project:
 
-  ```npm install @babel/polyfill classnames chroma-js history react react-dom react-router react-router-dom --save```
+  ```npm install @babel/polyfill classnames chroma-js react react-dom react-router react-router-dom --save```
 
 - Dev:
 

@@ -4,7 +4,7 @@ const webpack = require('webpack');
 module.exports = {
   webpackConfig: {
     devtool: 'source-map',
-    entry: ['react-hot-loader/patch', 'webpack-hot-middleware/client'],
+    entry: ['react-hot-loader/patch', 'webpack-hot-middleware/client?overlay=false'],
     mode: 'development',
     output: {
       filename: 'bundle.js',

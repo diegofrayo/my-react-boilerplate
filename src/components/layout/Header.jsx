@@ -11,7 +11,7 @@ import createStylesheet from 'styles/createStylesheet';
 const styles = createStylesheet(theme => ({
   container: {
     alignItems: 'center',
-    backgroundColor: theme.color.backgroundSecondary,
+    backgroundColor: theme.color.backgroundSecondary[100],
     color: theme.color.textSecondary,
     display: 'flex',
     flex: 0,
