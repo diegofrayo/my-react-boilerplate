@@ -6,6 +6,7 @@ import { AppContainer } from 'react-hot-loader';
 
 // components
 import Header from 'components/layout/Header';
+import ErrorBoundary from 'hocs/ErrorBoundary';
 
 // Routing
 import { Router } from 'routing';
@@ -33,7 +34,7 @@ const styles = createStylesheet(theme => ({
 const App = ({ body, header }) => (
   <section style={styles.container}>
     {header()}
-    <section style={styles.bodyContainer}>{body()}</section>
+    <ErrorBoundary>{() => <section style={styles.bodyContainer}>{body()}</section>}</ErrorBoundary>
   </section>
 );
 

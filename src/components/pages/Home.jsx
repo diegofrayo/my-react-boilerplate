@@ -2,13 +2,11 @@
 import React from 'react';
 
 class Home extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
+
+  state = {};
 
   render() {
-    return <section>Hello world!</section>;
+    return <section>Home page</section>;
   }
 }
 

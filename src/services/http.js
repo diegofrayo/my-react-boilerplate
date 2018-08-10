@@ -1,33 +1,33 @@
 class HTTP {
 
-  static get(route) {
-    return this.xhr(route, null, 'GET');
+  static get(route, headers) {
+    return this.xhr(route, null, 'GET', headers);
   }
 
-  static put(route, params) {
-    return this.xhr(route, params, 'PUT');
+  static put(route, params, headers) {
+    return this.xhr(route, params, 'PUT', headers);
   }
 
-  static post(route, params) {
-    return this.xhr(route, params, 'POST');
+  static post(route, params, headers) {
+    return this.xhr(route, params, 'POST', headers);
   }
 
-  static delete(route, params) {
-    return this.xhr(route, params, 'DELETE');
+  static delete(route, params, headers) {
+    return this.xhr(route, params, 'DELETE', headers);
   }
 
-  static xhr(route, params, verb) {
+  static xhr(route, params, verb, headers) {
 
-    const url = `/prefix${route}`;
-    const options = Object.assign(
-      { method: verb },
-      params ? { body: JSON.stringify(params) } : {}
-    );
+    const url = route;
+    const options = Object.assign({ method: verb }, params ? { body: JSON.stringify(params) } : {}, {
+      headers,
+    });
 
     return fetch(url, options)
       .then(response => {
 
         let body;
+        let contentType = '';
 
         if (
           response &&
@@ -35,18 +35,16 @@ class HTTP {
           response.headers._headers && // eslint-disable-line
           Array.isArray(response.headers._headers['content-type']) // eslint-disable-line
         ) {
-
           // eslint-disable-next-line
-          const contentType = response.headers._headers['content-type'].join(';');
+          contentType = response.headers._headers['content-type'].join(';');
+        } else if (options.headers && options.headers['content-type']) {
+          contentType = options.headers['content-type'];
+        }
 
-          if (contentType.indexOf('json') !== -1) {
-            body = response.json();
-          } else {
-            body = response.text();
-          }
-
+        if (contentType.indexOf('json') !== -1) {
+          body = response.json();
         } else {
-          body = Promise.resolve(response.statusText);
+          body = response.text();
         }
 
         return body.then(content => {

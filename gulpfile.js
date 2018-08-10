@@ -13,11 +13,12 @@ const HTML_MIN_OPTS = {
 };
 
 let destPath;
-let environment;
 let settings;
+let environment = 'development';
 
 try {
   settings = JSON.parse(fs.readFileSync('./config.app.json', 'utf8'));
+  destPath = settings[environment].dest_path;
 } catch (error) {
   g.util.log(`MY LOG ==> ' ${error}`);
   process.exit();
