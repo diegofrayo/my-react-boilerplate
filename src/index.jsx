@@ -23,7 +23,7 @@ target.setAttribute(
   'style',
   Object.keys(styles)
     .map(key => `${key}:${styles[key]}`)
-    .join(';'),
+    .join(';')
 );
 
 document.body.appendChild(target);

@@ -3,8 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class ErrorBoundary extends React.Component {
-
-  propTypes = {
+  static propTypes = {
     children: PropTypes.func.isRequired,
   };
 
@@ -25,6 +24,7 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return <div>Error catched</div>;
     }
+
     return this.props.children();
   }
 }

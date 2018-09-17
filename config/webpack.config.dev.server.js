@@ -18,7 +18,6 @@ module.exports = task(
   'webpack.config.dev.server',
   () =>
     new Promise(resolve => {
-
       let count = 0;
 
       const bs = Browsersync.create();
@@ -30,21 +29,19 @@ module.exports = task(
       });
 
       compiler.plugin('done', stats => {
-
         // Launch Browsersync after the initial bundling is complete
         count += 1;
 
         if (count === 1) {
-
           bs.watch('src/index.html').on('change', () => {
             cmd.get('gulp build-dev', data => bs.reload());
           });
 
           bs.init(
             {
-              port: Number(process.env.PORT) || 4567,
+              port: Number(process.env.PORT) || 3000,
               ui: {
-                port: Number(process.env.PORT || 4567) + 1,
+                port: Number(process.env.PORT || 3000) + 1,
               },
               server: {
                 baseDir: 'build',
@@ -57,11 +54,7 @@ module.exports = task(
             },
             resolve,
           );
-
         } // if
-
       }); // compiler
-
     }), // promise
-
 );

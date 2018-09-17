@@ -1,5 +1,4 @@
 module.exports = (env = {}) => {
-
   const fs = require('fs');
   const path = require('path');
   const webpack = require('webpack');
@@ -39,7 +38,7 @@ module.exports = (env = {}) => {
         ],
       },
     },
-    webpackConfig.config(isDevelopmentEnv),
+    webpackConfig.config(isDevelopmentEnv)
   );
 
   return config;

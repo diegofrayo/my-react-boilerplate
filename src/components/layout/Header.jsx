@@ -30,10 +30,14 @@ const Header = () => (
     <nav>
       <ul>
         <li style={styles.menuItem}>
-          <Link to={routes.HOME}>Home</Link>
+          <Link to={routes.HOME} href={routes.HOME}>
+            Home
+          </Link>
         </li>
         <li style={styles.menuItem}>
-          <Link to={routes.ABOUT}>About</Link>
+          <Link to={routes.ABOUT} href={routes.ABOUT}>
+            About
+          </Link>
         </li>
       </ul>
     </nav>

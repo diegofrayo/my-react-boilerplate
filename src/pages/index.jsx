@@ -34,7 +34,9 @@ const styles = createStylesheet(theme => ({
 const App = ({ body, header }) => (
   <section style={styles.container}>
     {header()}
-    <ErrorBoundary>{() => <section style={styles.bodyContainer}>{body()}</section>}</ErrorBoundary>
+    <ErrorBoundary>
+      {() => <section style={styles.bodyContainer}>{body()}</section>}
+    </ErrorBoundary>
   </section>
 );
 
@@ -53,6 +55,7 @@ const Root = () => {
   if (APP_SETTINGS.environment === 'development') {
     return <AppContainer>{renderApp()}</AppContainer>;
   }
+
   return renderApp();
 };
 
