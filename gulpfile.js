@@ -17,7 +17,9 @@ let settings;
 let environment;
 
 try {
-  settings = JSON.parse(fs.readFileSync('./config.app.json', 'utf8'));
+  environment = argv.prod ? 'production' : 'development';
+  settings = JSON.parse(fs.readFileSync('./config.app.json', 'utf8'))[environment];
+  if (!settings) throw new Error('Invalid settings');
 } catch (error) {
   g.util.log(`MY LOG ==> ${error.getMessage()}`);
   process.exit();
@@ -51,6 +53,8 @@ const buildHTML = () => {
   let jsSources;
   let cssSources;
 
+  console.log('dede');
+
   if (environment === 'development') {
     cssSources = [];
     jsSources = ['/js/bundle.js'];
@@ -76,39 +80,24 @@ const buildAssets = () => {
     .pipe(gulp.dest(`${settings.dest_path}/images`));
 };
 
-const configureEnvironment = callback => {
-  if (environment) return callback();
-
-  environment = argv.prod ? 'production' : 'development';
-  settings = settings[environment];
-
-  return callback();
-};
-
-// -----------------------------------------------------
-// ----------------- Builds Tasks ----------------------
-gulp.task('configure-environment', configureEnvironment);
-
 // ----------------------------------------------------
 // ------------------- CSS Tasks ----------------------
-gulp.task('build-css', gulp.series('configure-environment'), buildCSS);
+gulp.task('build-css', buildCSS);
 
 // ----------------------------------------------------
 // ------------------- JS Tasks -----------------------
-gulp.task('build-js', gulp.series('configure-environment'), buildJS);
+gulp.task('build-js', buildJS);
 
 // ----------------------------------------------------
 // ------------------- HTML Tasks ---------------------
-gulp.task('build-html', gulp.series('configure-environment'), buildHTML);
+gulp.task('build-html', buildHTML);
 
 // ----------------------------------------------------
 // ------------------ Build Assets Tasks --------------
-gulp.task('build-assets', gulp.series('configure-environment'), buildAssets);
+gulp.task('build-assets', buildAssets);
+gulp.task('build-html', buildHTML);
 
-gulp.task(
-  'build',
-  gulp.series(
-    'configure-environment',
-    gulp.parallel('build-html', 'build-js', 'build-assets'),
-  ),
-);
+// ----------------------------------------------------
+// ---------------------- Main Tasks ------------------
+gulp.task('build', gulp.series('build-html', 'build-js', 'build-assets'));
+gulp.task('default', gulp.parallel('build'));
