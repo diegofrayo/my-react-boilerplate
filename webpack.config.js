@@ -4,9 +4,9 @@ module.exports = (env = {}) => {
   const webpack = require('webpack');
   const webpackConfig = require('./config/webpack.config.js');
 
-  const ENVIRONMENT = process.env.NODE_ENV || 'development';
+  const ENVIRONMENT = env.NODE_ENV || 'development';
   let isDevelopmentEnv = ENVIRONMENT === 'development';
-  let isESLintEnabled = !env.disableLint;
+  let isESLintEnabled = !env.DISABLE_LINT;
   let settings = {};
 
   try {
@@ -38,7 +38,7 @@ module.exports = (env = {}) => {
         ],
       },
     },
-    webpackConfig.config(isDevelopmentEnv)
+    webpackConfig.config(isDevelopmentEnv),
   );
 
   return config;

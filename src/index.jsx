@@ -11,8 +11,8 @@ import createStylesheet from 'styles/createStylesheet';
 // styles
 import 'styles/reset.css';
 
-const styles = createStylesheet(theme => ({
-  'background-color': theme.color.body,
+const styles = createStylesheet(() => ({
+  'background-color': 'white',
   display: 'flex',
   flex: 1,
   height: '100vh',
@@ -23,7 +23,7 @@ target.setAttribute(
   'style',
   Object.keys(styles)
     .map(key => `${key}:${styles[key]}`)
-    .join(';')
+    .join(';'),
 );
 
 document.body.appendChild(target);

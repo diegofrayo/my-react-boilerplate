@@ -4,18 +4,12 @@
   }],
   "settings": {
     "js_prettier": {
-      "auto_format_on_save": true,
-      "prettier_options": {
-        "printWidth": 120,
-        "singleQuote": true,
-        "tabWidth": 2,
-        "trailingComma": "es5"
-      }
+      "auto_format_on_save": true
     },
     "SublimeLinter.linters.eslint.disable": false,
     "SublimeLinter.linters.stylelint.disable": false,
+    "save_on_focus_lost": true,
     "tab_size": 2,
-    "translate_tabs_to_spaces": true,
-    "save_on_focus_lost": false
+    "translate_tabs_to_spaces": true
   }
 }

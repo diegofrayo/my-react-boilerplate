@@ -11,8 +11,8 @@ import createStylesheet from 'styles/createStylesheet';
 const styles = createStylesheet(theme => ({
   container: {
     alignItems: 'center',
-    backgroundColor: theme.color.backgroundSecondary[100],
-    color: theme.color.textSecondary,
+    backgroundColor: 'black',
+    color: 'white',
     display: 'flex',
     flex: 0,
     minHeight: theme.headerHeight,

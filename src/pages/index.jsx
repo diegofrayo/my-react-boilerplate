@@ -16,15 +16,15 @@ import createStylesheet from 'styles/createStylesheet';
 
 const styles = createStylesheet(theme => ({
   container: {
-    backgroundColor: theme.color.backgroundPrimary,
+    backgroundColor: 'white',
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
     margin: ' 0 auto',
   },
   bodyContainer: {
-    backgroundColor: theme.color.backgroundPrimary[100],
-    color: theme.color.textPrimary,
+    backgroundColor: 'white',
+    color: 'black',
     flex: 1,
     overflow: 'auto',
     padding: theme.spacing.medium,

@@ -1,8 +1,9 @@
-//------------------------------------------------------------------
-//-------------- Load Plugins And Their Settings -------------------
+// ------------------------------------------------------------------
+// -------------- Load Plugins And Their Settings -------------------
 const gulp = require('gulp');
 const fs = require('fs');
 const g = require('gulp-load-plugins')({ lazy: false });
+const { argv } = require('yargs');
 
 const HTML_MIN_OPTS = {
   removeComments: true,
@@ -12,20 +13,18 @@ const HTML_MIN_OPTS = {
   removeRedundantAttributes: true,
 };
 
-let destPath;
 let settings;
-let environment = 'development';
+let environment;
 
 try {
   settings = JSON.parse(fs.readFileSync('./config.app.json', 'utf8'));
-  destPath = settings[environment].dest_path;
 } catch (error) {
-  g.util.log(`MY LOG ==> ' ${error}`);
+  g.util.log(`MY LOG ==> ${error.getMessage()}`);
   process.exit();
 }
 
-//----------------------------------------------------
-//------------------- Util Functions -----------------
+// ----------------------------------------------------
+// ------------------- Util Functions -----------------
 const createCSSTags = cssSources => {
   const createTag = url => `<link href="${url}" rel="stylesheet"/>`;
   return cssSources.map(url => createTag(url)).join('\n\t');
@@ -36,67 +35,80 @@ const createJSTags = jsSources => {
   return jsSources.map(url => createTag(url)).join('\n\t');
 };
 
-//----------------------------------------------------
-//------------------- JS Tasks -----------------------
-gulp.task('build-js', () => {
-  return gulp.src('./build/js/bundle.js').pipe(gulp.dest(`${destPath}/js`));
-});
+const buildJS = () => {
+  return gulp
+    .src('./build/js/bundle.js', { allowEmpty: true })
+    .pipe(gulp.dest(`${settings.dest_path}/js`));
+};
 
-//----------------------------------------------------
-//------------------- CSS Tasks -----------------------
-gulp.task('build-css', () => {
-  return gulp.src('./build/css/styles.css').pipe(gulp.dest(`${destPath}/css`));
-});
+const buildCSS = () => {
+  return gulp.src('./build/css/styles.css').pipe(gulp.dest(`${settings.dest_path}/css`));
+};
 
-//----------------------------------------------------
-//------------------- HTML Tasks ---------------------
-gulp.task('build-html', () => {
-
+const buildHTML = () => {
   const timestamp = +new Date();
   const stream = gulp.src('./src/index.html');
-  let cssSources, jsSources;
+  let jsSources;
+  let cssSources;
 
   if (environment === 'development') {
-
     cssSources = [];
     jsSources = ['/js/bundle.js'];
 
     return stream
-      .pipe(g.replace('<!-- INJECT:css -->', createCSSTags(cssSources)))
       .pipe(g.replace('<!-- INJECT:js -->', createJSTags(jsSources)))
-      .pipe(gulp.dest(destPath));
-
-  } else {
-
-    cssSources = [`/css/styles.css?tm=${timestamp}`];
-    jsSources = [`/js/bundle.js?tm=${timestamp}`];
-
-    return stream
-      .pipe(g.replace('<!-- INJECT:css -->', createCSSTags(cssSources)))
-      .pipe(g.replace('<!-- INJECT:js -->', createJSTags(jsSources)))
-      .pipe(g.htmlmin(HTML_MIN_OPTS))
-      .pipe(gulp.dest(destPath));
-
+      .pipe(gulp.dest(settings.dest_path));
   }
 
-});
+  cssSources = [`/css/styles.css?tm=${timestamp}`];
+  jsSources = [`/js/bundle.js?tm=${timestamp}`];
 
-//----------------------------------------------------
-//------------------- Copy Assets Tasks --------------
-gulp.task('copy-assets', () => {
-  gulp.src('./assets/images/**/*').pipe(gulp.dest(`${destPath}/images`));
-});
+  return stream
+    .pipe(g.replace('<!-- INJECT:css -->', createCSSTags(cssSources)))
+    .pipe(g.replace('<!-- INJECT:js -->', createJSTags(jsSources)))
+    .pipe(g.htmlmin(HTML_MIN_OPTS))
+    .pipe(gulp.dest(settings.dest_path));
+};
 
-//-------------------------------------------------------
-//----------------- Builds Tasks ------------------------
-gulp.task('build-dev', () => {
-  environment = 'development';
-  destPath = settings[environment].dest_path;
-  g.runSequence('build-html', 'copy-assets');
-});
+const buildAssets = () => {
+  return gulp
+    .src('./assets/images/**/*', { allowEmpty: true })
+    .pipe(gulp.dest(`${settings.dest_path}/images`));
+};
 
-gulp.task('build-live', () => {
-  environment = 'production';
-  destPath = settings[environment].dest_path;
-  g.runSequence('build-js', 'build-css', 'build-html', 'copy-assets');
-});
+const configureEnvironment = callback => {
+  if (environment) return callback();
+
+  environment = argv.prod ? 'production' : 'development';
+  settings = settings[environment];
+
+  return callback();
+};
+
+// -----------------------------------------------------
+// ----------------- Builds Tasks ----------------------
+gulp.task('configure-environment', configureEnvironment);
+
+// ----------------------------------------------------
+// ------------------- CSS Tasks ----------------------
+gulp.task('build-css', gulp.series('configure-environment'), buildCSS);
+
+// ----------------------------------------------------
+// ------------------- JS Tasks -----------------------
+gulp.task('build-js', gulp.series('configure-environment'), buildJS);
+
+// ----------------------------------------------------
+// ------------------- HTML Tasks ---------------------
+gulp.task('build-html', gulp.series('configure-environment'), buildHTML);
+
+// ----------------------------------------------------
+// ------------------ Build Assets Tasks --------------
+gulp.task('build-assets', gulp.series('configure-environment'), buildAssets);
+
+gulp.task(
+  'build',
+  gulp.series(
+    'configure-environment',
+    gulp.parallel('build-html', 'build-js', 'build-assets'),
+  ),
+);
