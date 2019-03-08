@@ -53,8 +53,6 @@ const buildHTML = () => {
   let jsSources;
   let cssSources;
 
-  console.log('dede');
-
   if (environment === 'development') {
     cssSources = [];
     jsSources = ['/js/bundle.js'];
@@ -95,9 +93,8 @@ gulp.task('build-html', buildHTML);
 // ----------------------------------------------------
 // ------------------ Build Assets Tasks --------------
 gulp.task('build-assets', buildAssets);
-gulp.task('build-html', buildHTML);
 
 // ----------------------------------------------------
 // ---------------------- Main Tasks ------------------
-gulp.task('build', gulp.series('build-html', 'build-js', 'build-assets'));
+gulp.task('build', gulp.parallel('build-html', 'build-js', 'build-assets'));
 gulp.task('default', gulp.parallel('build'));

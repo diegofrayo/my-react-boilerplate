@@ -8,10 +8,15 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+const webpack = require('webpack');
 const Browsersync = require('browser-sync');
 const cmd = require('node-cmd');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const connectHistoryApiFallback = require('connect-history-api-fallback');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+
 const task = require('./task');
-const webpack = require('webpack');
+const webpackConfig = require('./../webpack.config')(process.env);
 
 // Build the app and launch it in a browser for testing via Browsersync
 module.exports = task(
@@ -21,20 +26,19 @@ module.exports = task(
       let count = 0;
 
       const bs = Browsersync.create();
-      const webpackConfig = require('./../webpack.config')(process.env);
       const compiler = webpack(webpackConfig);
-      const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
+      const devMiddleware = webpackDevMiddleware(compiler, {
         publicPath: webpackConfig.output.publicPath,
         hot: true,
       });
 
-      compiler.plugin('done', stats => {
+      compiler.plugin('done', () => {
         // Launch Browsersync after the initial bundling is complete
         count += 1;
 
         if (count === 1) {
           bs.watch('src/index.html').on('change', () => {
-            cmd.get('gulp build-dev', data => bs.reload());
+            cmd.get('gulp build-dev', () => bs.reload());
           });
 
           bs.init(
@@ -46,9 +50,9 @@ module.exports = task(
               server: {
                 baseDir: 'build',
                 middleware: [
-                  webpackDevMiddleware,
-                  require('webpack-hot-middleware')(compiler),
-                  require('connect-history-api-fallback')(),
+                  devMiddleware,
+                  webpackHotMiddleware(compiler),
+                  connectHistoryApiFallback(),
                 ],
               },
             },

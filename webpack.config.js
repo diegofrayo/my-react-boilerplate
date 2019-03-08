@@ -1,12 +1,11 @@
-module.exports = (env = {}) => {
-  const fs = require('fs');
-  const path = require('path');
-  const webpack = require('webpack');
-  const webpackConfig = require('./config/webpack.config.js');
+const fs = require('fs');
+const path = require('path');
+const webpackConfig = require('./config/webpack.config.js');
 
+module.exports = (env = {}) => {
   const ENVIRONMENT = env.NODE_ENV || 'development';
-  let isDevelopmentEnv = ENVIRONMENT === 'development';
-  let isESLintEnabled = !env.DISABLE_LINT;
+  const isDevelopmentEnv = ENVIRONMENT === 'development';
+  const isESLintEnabled = !env.DISABLE_LINT;
   let settings = {};
 
   try {

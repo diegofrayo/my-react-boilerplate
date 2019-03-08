@@ -82,7 +82,7 @@ module.exports = {
   babel: isDevelopmentEnv => {
     const babelConfig = {
       test: /(\.js|.jsx)$/,
-      exclude: /(node_modules|webpack_cache|config)/,
+      exclude: /(node_modules|config)/,
       use: [
         {
           loader: 'babel-loader',
@@ -113,7 +113,7 @@ module.exports = {
   eslint: isESLintEnabled => {
     if (isESLintEnabled) {
       return {
-        exclude: /(node_modules|webpack_cache|config)/,
+        exclude: /(node_modules|config)/,
         include: /(src)/,
         loader: 'eslint-loader',
         test: /(\.js|.jsx)$/,
