@@ -69,7 +69,7 @@ module.exports = {
         new webpack.LoaderOptionsPlugin({
           options: {
             eslint: {
-              configFile: path.join(__dirname, './../.eslintrc'),
+              configFile: path.join(__dirname, './../eslintrc.json'),
             },
           },
         }),

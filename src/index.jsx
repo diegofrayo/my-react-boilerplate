@@ -1,17 +1,12 @@
-// npm libs
+import 'styles';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// containers
 import Root from 'pages';
+import { createStyles } from '@diegofrayo/styles';
 
-// theme
-import createStylesheet from 'styles/createStylesheet';
-
-// styles
-import 'styles/reset.css';
-
-const styles = createStylesheet(() => ({
+const styles = createStyles(() => ({
   'background-color': 'white',
   display: 'flex',
   flex: 1,
@@ -31,7 +26,7 @@ ReactDOM.render(<Root />, target);
 
 if (module.hot) {
   module.hot.accept('./pages/index.jsx', () => {
-    // eslint-disable-next-line
+    // eslint-disable-next-line global-require
     const NextApp = require('./pages/index.jsx').default;
     ReactDOM.render(<NextApp />, target);
   });

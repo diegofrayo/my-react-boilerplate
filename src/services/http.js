@@ -1,5 +1,4 @@
 class HTTP {
-
   static get(route, headers) {
     return this.xhr(route, null, 'GET', headers);
   }
@@ -17,15 +16,17 @@ class HTTP {
   }
 
   static xhr(route, params, verb, headers) {
-
     const url = route;
-    const options = Object.assign({ method: verb }, params ? { body: JSON.stringify(params) } : {}, {
-      headers,
-    });
+    const options = Object.assign(
+      { method: verb },
+      params ? { body: JSON.stringify(params) } : {},
+      {
+        headers,
+      },
+    );
 
     return fetch(url, options)
       .then(response => {
-
         let body;
         let contentType = '';
 
@@ -48,7 +49,8 @@ class HTTP {
         }
 
         return body.then(content => {
-          if (response.status >= 200 && response.status < 300 && response.ok) return content;
+          if (response.status >= 200 && response.status < 300 && response.ok)
+            return content;
           throw content || response.statusText;
         });
       })

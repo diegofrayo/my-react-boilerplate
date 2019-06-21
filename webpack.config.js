@@ -15,30 +15,27 @@ module.exports = (env = {}) => {
     process.exit();
   }
 
-  const config = Object.assign(
-    {},
-    {
-      context: __dirname,
-      entry: webpackConfig.entry(isDevelopmentEnv),
-      plugins: webpackConfig.plugins({
-        isDevelopmentEnv,
-        settings,
-        isESLintEnabled,
-      }),
-      resolve: {
-        extensions: ['.js', '.jsx'],
-        modules: [path.resolve(__dirname, 'src'), 'node_modules'],
-      },
-      module: {
-        rules: [
-          webpackConfig.babel(isDevelopmentEnv),
-          webpackConfig.styles(),
-          webpackConfig.eslint(isESLintEnabled),
-        ],
-      },
+  const config = {
+    context: __dirname,
+    entry: webpackConfig.entry(isDevelopmentEnv),
+    plugins: webpackConfig.plugins({
+      isDevelopmentEnv,
+      isESLintEnabled,
+      settings,
+    }),
+    resolve: {
+      extensions: ['.js', '.jsx'],
+      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     },
-    webpackConfig.config(isDevelopmentEnv),
-  );
+    module: {
+      rules: [
+        webpackConfig.babel(isDevelopmentEnv),
+        webpackConfig.styles(),
+        webpackConfig.eslint(isESLintEnabled),
+      ],
+    },
+    ...webpackConfig.config(isDevelopmentEnv),
+  };
 
   return config;
 };

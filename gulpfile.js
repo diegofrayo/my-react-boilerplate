@@ -1,15 +1,13 @@
-// ------------------------------------------------------------------
-// -------------- Load Plugins And Their Settings -------------------
 const gulp = require('gulp');
 const fs = require('fs');
 const g = require('gulp-load-plugins')({ lazy: false });
 const { argv } = require('yargs');
 
 const HTML_MIN_OPTS = {
-  removeComments: true,
-  collapseWhitespace: true,
-  removeEmptyAttributes: false,
   collapseBooleanAttributes: true,
+  collapseWhitespace: true,
+  removeComments: true,
+  removeEmptyAttributes: false,
   removeRedundantAttributes: true,
 };
 
@@ -21,12 +19,12 @@ try {
   settings = JSON.parse(fs.readFileSync('./config.app.json', 'utf8'))[environment];
   if (!settings) throw new Error('Invalid settings');
 } catch (error) {
-  g.util.log(`MY LOG ==> ${error.getMessage()}`);
+  g.util.log(`LOG ==> ${error.message}`);
   process.exit();
 }
 
-// ----------------------------------------------------
-// ------------------- Util Functions -----------------
+// ----------------------------------
+// --------- Util Functions ---------
 const createCSSTags = cssSources => {
   const createTag = url => `<link href="${url}" rel="stylesheet"/>`;
   return cssSources.map(url => createTag(url)).join('\n\t');
@@ -48,7 +46,7 @@ const buildCSS = () => {
 };
 
 const buildHTML = () => {
-  const timestamp = +new Date();
+  const timestamp = Date.now();
   const stream = gulp.src('./src/index.html');
   let jsSources;
   let cssSources;
@@ -78,23 +76,14 @@ const buildAssets = () => {
     .pipe(gulp.dest(`${settings.dest_path}/images`));
 };
 
-// ----------------------------------------------------
-// ------------------- CSS Tasks ----------------------
+// -------------------------------
+// --------- Build Tasks ---------
 gulp.task('build-css', buildCSS);
-
-// ----------------------------------------------------
-// ------------------- JS Tasks -----------------------
 gulp.task('build-js', buildJS);
-
-// ----------------------------------------------------
-// ------------------- HTML Tasks ---------------------
 gulp.task('build-html', buildHTML);
-
-// ----------------------------------------------------
-// ------------------ Build Assets Tasks --------------
 gulp.task('build-assets', buildAssets);
 
-// ----------------------------------------------------
-// ---------------------- Main Tasks ------------------
+// ------------------------------
+// --------- Main Tasks ---------
 gulp.task('build', gulp.parallel('build-html', 'build-js', 'build-assets'));
 gulp.task('default', gulp.parallel('build'));

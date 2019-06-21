@@ -1,23 +1,19 @@
-// npm libs
 import React from 'react';
-import Route from 'react-router-dom/Route';
-import Switch from 'react-router-dom/Switch';
+import { Route, Switch } from 'react-router-dom';
 
-// pages
 import About from 'pages/About';
 import Home from 'pages/Home';
 
-const ROOT = APP_SETTINGS.environment === 'development' ? '' : '/name-project';
-const routes = {
-  HOME: ROOT === '' ? '/' : ROOT,
-  ABOUT: `${ROOT}/about`,
+const Routes = {
+  HOME: '/',
+  ABOUT: '/about',
 };
 
 const Router = () => (
   <Switch>
-    <Route exact path={routes.HOME} component={Home} />
-    <Route exact path={routes.ABOUT} component={About} />
+    <Route exact path={Routes.HOME} component={Home} />
+    <Route exact path={Routes.ABOUT} component={About} />
   </Switch>
 );
 
-export { Router, routes };
+export { Router, Routes };
