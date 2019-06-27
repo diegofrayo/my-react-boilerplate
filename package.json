@@ -1,10 +1,9 @@
 {
-  "name": "react-web-starter",
+  "name": "react-starter",
   "version": "1.0.0",
   "description": "Starter project for React web applications",
-  "homepage": "https://github.com/diegofrayo/react-web-starter#readme",
+  "homepage": "https://github.com/diegofrayo/react-starter#readme",
   "license": "MIT",
-  "main": "src/index.jsx",
   "private": true,
   "keywords": [
     "react",
@@ -16,7 +15,7 @@
   ],
   "bugs": {
     "email": "diegofrayo@gmail.com",
-    "url": "https://github.com/diegofrayo/react-web-starter/issues"
+    "url": "https://github.com/diegofrayo/react-starter/issues"
   },
   "author": {
     "name": "Diego Rayo",
@@ -25,13 +24,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/diegofrayo/react-web-starter.git"
+    "url": "git+https://github.com/diegofrayo/react-starter.git"
   },
   "scripts": {
     "start:all": "gulp build && node config/webpack.config.dev.server.js",
     "start": "cross-env NODE_ENV=development npm run start:all",
     "build:all": "webpack --mode production && gulp build --prod",
-    "build": "cross-env NODE_ENV=production npm run build:all"
+    "build": "cross-env NODE_ENV=production npm run build:all",
+    "lint": "eslint -c eslintrc.json src/**/*.{js,jsx}"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -90,7 +90,7 @@
     }
   },
   "lint-staged": {
-    "src/*.{js,jsx}": [
+    "src/**/*.{js,jsx}": [
       "prettier --write",
       "eslint -c eslintrc.json",
       "git add"

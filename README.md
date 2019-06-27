@@ -1,4 +1,4 @@
-# react-web-starter
+# react-starter
 
 ## Description
 
