@@ -16,4 +16,8 @@ const Router = () => (
   </Switch>
 );
 
-export { Router, Routes };
+const redirect = (route, history) => {
+  history.push(route);
+};
+
+export { Router, Routes, redirect };

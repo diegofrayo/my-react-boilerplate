@@ -1,4 +1,3 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -20,13 +19,13 @@ module.exports = {
       mode: 'production',
       output: {
         filename: 'bundle.js',
-        path: path.join(__dirname, '../build'),
+        path: path.join(__dirname, '../build/js'),
       },
     };
   },
 
   entry: isDevelopmentEnv => {
-    let entry = ['@babel/polyfill', 'whatwg-fetch', './src/index.jsx'];
+    let entry = ['@babel/polyfill', 'whatwg-fetch'];
 
     if (isDevelopmentEnv) {
       entry = entry.concat([
@@ -34,6 +33,8 @@ module.exports = {
         'webpack-hot-middleware/client?overlay=false',
       ]);
     }
+
+    entry.push('./src/index.jsx');
 
     return entry;
   },
@@ -45,7 +46,7 @@ module.exports = {
     };
   },
 
-  plugins: ({ isDevelopmentEnv, isESLintEnabled, settings }) => {
+  plugins: ({ isDevelopmentEnv, isESLintDisabled, settings }) => {
     let plugins = [new webpack.DefinePlugin({ APP_SETTINGS: JSON.stringify(settings) })];
 
     if (isDevelopmentEnv) {
@@ -54,17 +55,10 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
       ]);
     } else {
-      plugins = plugins.concat([
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new CleanWebpackPlugin(['build'], {
-          root: path.join(__dirname, '../'),
-          verbose: true,
-          dry: false,
-        }),
-      ]);
+      plugins = plugins.concat([new webpack.optimize.OccurrenceOrderPlugin()]);
     }
 
-    if (isESLintEnabled) {
+    if (!isESLintDisabled) {
       plugins.unshift(
         new webpack.LoaderOptionsPlugin({
           options: {
@@ -92,7 +86,11 @@ module.exports = {
               '@babel/plugin-proposal-class-properties',
               '@babel/plugin-syntax-dynamic-import',
             ],
-            presets: ['@babel/preset-env', '@babel/react'],
+            presets: [
+              '@babel/preset-env',
+              '@babel/react',
+              '@emotion/babel-preset-css-prop',
+            ],
             env: {
               production: {
                 plugins: ['transform-remove-console'],
@@ -110,8 +108,8 @@ module.exports = {
     return babelConfig;
   },
 
-  eslint: isESLintEnabled => {
-    if (isESLintEnabled) {
+  eslint: isESLintDisabled => {
+    if (!isESLintDisabled) {
       return {
         exclude: /(node_modules|config)/,
         include: /(src)/,

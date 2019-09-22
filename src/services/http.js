@@ -17,13 +17,11 @@ class HTTP {
 
   static xhr(route, params, verb, headers) {
     const url = route;
-    const options = Object.assign(
-      { method: verb },
-      params ? { body: JSON.stringify(params) } : {},
-      {
-        headers,
-      },
-    );
+    const options = {
+      method: verb,
+      headers,
+      ...(params ? { body: JSON.stringify(params) } : {}),
+    };
 
     return fetch(url, options)
       .then(response => {

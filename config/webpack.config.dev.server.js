@@ -38,7 +38,7 @@ module.exports = task(
 
         if (count === 1) {
           bs.watch('src/index.html').on('change', () => {
-            cmd.get('gulp build-dev', () => bs.reload());
+            cmd.get('gulp build', () => bs.reload());
           });
 
           bs.init(
