@@ -8,19 +8,19 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-const webpack = require('webpack');
-const Browsersync = require('browser-sync');
-const cmd = require('node-cmd');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const connectHistoryApiFallback = require('connect-history-api-fallback');
-const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpack = require("webpack");
+const Browsersync = require("browser-sync");
+const cmd = require("node-cmd");
+const webpackHotMiddleware = require("webpack-hot-middleware");
+const connectHistoryApiFallback = require("connect-history-api-fallback");
+const webpackDevMiddleware = require("webpack-dev-middleware");
 
-const task = require('./task');
-const webpackConfig = require('./../webpack.config')(process.env);
+const task = require("./task");
+const webpackConfig = require("./../webpack.config")(process.env);
 
 // Build the app and launch it in a browser for testing via Browsersync
 module.exports = task(
-  'webpack.config.dev.server',
+  "webpack.config.dev.server",
   () =>
     new Promise(resolve => {
       let count = 0;
@@ -32,13 +32,13 @@ module.exports = task(
         hot: true,
       });
 
-      compiler.plugin('done', () => {
+      compiler.plugin("done", () => {
         // Launch Browsersync after the initial bundling is complete
         count += 1;
 
         if (count === 1) {
-          bs.watch('src/index.html').on('change', () => {
-            cmd.get('gulp build', () => bs.reload());
+          bs.watch("src/index.html").on("change", () => {
+            cmd.get("gulp build", () => bs.reload());
           });
 
           bs.init(
@@ -48,7 +48,7 @@ module.exports = task(
                 port: Number(process.env.PORT || 3000) + 1,
               },
               server: {
-                baseDir: 'build',
+                baseDir: "build",
                 middleware: [
                   devMiddleware,
                   webpackHotMiddleware(compiler),

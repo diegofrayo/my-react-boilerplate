@@ -62,5 +62,3 @@ typings/
 
 .DS_Store
 build/
-yarn.lock
-config.sublime-workspace

@@ -9,12 +9,14 @@ const Routes = {
   ABOUT: '/about',
 };
 
-const Router = () => (
-  <Switch>
-    <Route exact path={Routes.HOME} component={Home} />
-    <Route exact path={Routes.ABOUT} component={About} />
-  </Switch>
-);
+const Router = () => {
+  return (
+    <Switch>
+      <Route exact path={Routes.HOME} component={Home} />
+      <Route exact path={Routes.ABOUT} component={About} />
+    </Switch>
+  );
+};
 
 const redirect = (route, history) => {
   history.push(route);
