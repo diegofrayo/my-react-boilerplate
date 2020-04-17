@@ -20,7 +20,7 @@
   "author": {
     "name": "Diego Rayo",
     "email": "diegofrayo@gmail.com",
-    "url": "https://diegofrayo.netlify.com"
+    "url": "https://diegofrayo.netlify.app"
   },
   "repository": {
     "type": "git",
@@ -90,11 +90,11 @@
     "whatwg-fetch": "^3.0.0"
   },
   "engines": {
-    "node": ">=8.15.1"
+    "node": ">=10.19.0"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
